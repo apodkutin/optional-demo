@@ -11,7 +11,7 @@ public class Person {
 	
 	private Optional<Integer> age;
 	
-	private Optional<PersonAddress> address = Optional.ofNullable(new PersonAddress());
+	private Optional<PersonAddress> address;
 	
 	public Optional<String> getFirstName() {
 		return firstName;
@@ -37,6 +37,15 @@ public class Person {
 		this.age = Optional.ofNullable(age);
 	}
 	
+	public Optional<PersonAddress> getAddress() {
+		return address;
+	}
+
+	public void setAddress(PersonAddress address) {
+		//¬ыкидывает NullPointerException, если передаетс€ null в качестве параметра address
+		this.address = Optional.of(address);
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder personDescription = new StringBuilder("First name: ");
@@ -53,13 +62,6 @@ public class Person {
 		return todaysDate.getYear() - getAge().get();
 	}
 
-	public Optional<PersonAddress> getAddress() {
-		return address;
-	}
 
-	public void setAddress(PersonAddress address) {
-		//¬ыкидывает NullPointerException, если передаетс€ null в качестве параметра address
-		this.address = Optional.of(address);
-	}
 
 }

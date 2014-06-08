@@ -1,15 +1,24 @@
 package optional.demo;
 
+import java.util.Optional;
+
 public class PersonAddress {
 	
-	private String address = "Russia, Moscow";
+	public PersonAddress(PersonAddressStreet street) {
+		this.street = Optional.ofNullable(street);
+	}
+	
+	private Optional<PersonAddressStreet> street;
 
-	public String getAddress() {
-		return address;
+	public Optional<PersonAddressStreet> getStreet() {
+		return street;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setStreet(PersonAddressStreet street) {
+		this.street = Optional.ofNullable(street);
 	}
+	
+	
+	
 
 }
