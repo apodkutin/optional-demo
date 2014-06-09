@@ -1,111 +1,1 @@
-package optional.demo;
-
-import java.util.Optional;
-
-public class OptionalDemo {
-	
-	public static Optional<Person> getDefaultPerson() {
-		Long defaultPersonId = 1l;
-		return Optional.ofNullable(loadPerson(defaultPersonId));
-	}
-	
-	private static Person loadPerson(Long personId) {
-		if (personId == null) {
-			return null;
-		} else {
-			Person personToLoad = new Person();
-			personToLoad.setFirstName(null);
-			personToLoad.setSecondName("Smith");
-			personToLoad.setAge(33);
-			PersonAddress address = new PersonAddress(new PersonAddressStreet("Manezhnaya str."));
-			personToLoad.setAddress(address);
-			return personToLoad;
-		}
-	}
-
-	public static void main(String[] args) throws Exception {
-		Optional<Person> person = getDefaultPerson();
-		/** Пример использования Optional для удаления избыточного кода */
-		/* Как было раньше (проверка на null)
-		Person person = getDefaultPerson();
-		if (person != null) {
-			PersonAddress personAddress = person.getAddress();
-			if (personAddress != null) {
-				PersonAddressStreet street = personAddress.getStreet();
-				if(street != null) {
-					streetName = street.getStreetName();
-				} else {
-					streetName = "EMPTY";
-				}
-			}
-		}
-		*/
-		//Тот же фрагмент, но с использованием Optional.
-		String streetName = person.flatMap(Person::getAddress)
-                .flatMap(PersonAddress::getStreet)
-                .map(PersonAddressStreet::getStreetName)
-                .orElse("EMPTY");
-		
-		System.out.println(streetName);
-		
-		/** Создание Optional объектов */
-		
-		//Пустой Optional объект
-		Optional<Person> optionalPerson = Optional.empty();
-		
-		//Optional объект с ненулевым значением
-		Optional<Person> optionalNonNull = Optional.of(new Person());
-		
-		//Optional объект с возможностью нулевого значения
-		Optional<Person> optionalNullable = Optional.ofNullable(new Person());
-		
-		
-		/** Действия с объектом, с использованием метода ifPresent() */
-		
-		/* Как было раньше:
-		 if(person != null) {
-		  System.out.println(person);
-		 }
-		 
-		 */
-		
-		//То же самое, но с использованием Optional
-		
-		person.ifPresent(System.out::println);
-		
-		/** Действия с объектом с использованием isPresent() */
-		/* Как было раньше
-		  if(person != null) {
-		    System.out.println(person)
-		  } else {
-		    System.out.println("Person not found!");
-		  }
-		 */
-		
-		//То же самое, но с использованием Optional
-		//Изменения небольшие, но метод isPresent() придает больше информативности коду.
-		
-		if (person.isPresent()) {
-			System.out.println(person.get());
-		} else {
-			System.out.println("Person not found!");
-		}
-		
-		/** Действия с объектом с использованием orElse(), orElseThrow() */
-		/* Как было раньше
-		  Person personNew = person != null ? person : new Person();
-		 */
-		
-		//То же самое, но с использованием Optional
-		
-		Person personNew = person.orElse(new Person());
-		//Или если не хотим создавать объект, можно выбросить исключение
-		Person personNewThrow = person.orElseThrow(Exception::new);
-		
-		System.out.println();
-		
-		
-		
-	}
-
-}
+package optional.demo;import java.util.Optional;public class OptionalDemo {		public static Optional<Person> getDefaultPerson() {		Long defaultPersonId = 1l;		return Optional.ofNullable(loadPerson(defaultPersonId));	}		private static Person loadPerson(Long personId) {		if (personId == null) {			return null;		} else {			Person personToLoad = new Person();			personToLoad.setFirstName(null);			personToLoad.setSecondName("Smith");			personToLoad.setAge(33);			PersonAddress address = new PersonAddress(new PersonAddressStreet("Manezhnaya str."));			personToLoad.setAddress(address);			return personToLoad;		}	}	public static void main(String[] args) throws Exception {		Optional<Person> person = getDefaultPerson();		/** РџСЂРёРјРµСЂ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ Optional РґР»СЏ СѓРґР°Р»РµРЅРёСЏ РёР·Р±С‹С‚РѕС‡РЅРѕРіРѕ РєРѕРґР° */		/* РљР°Рє Р±С‹Р»Рѕ СЂР°РЅСЊС€Рµ (РїСЂРѕРІРµСЂРєР° РЅР° null)		Person person = getDefaultPerson();		if (person != null) {			PersonAddress personAddress = person.getAddress();			if (personAddress != null) {				PersonAddressStreet street = personAddress.getStreet();				if(street != null) {					streetName = street.getStreetName();				} else {					streetName = "EMPTY";				}			}		}		*/		//РўРѕС‚ Р¶Рµ С„СЂР°РіРјРµРЅС‚, РЅРѕ СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј Optional.		String streetName = person.flatMap(Person::getAddress)                .flatMap(PersonAddress::getStreet)                .map(PersonAddressStreet::getStreetName)                .orElse("EMPTY");				System.out.println(streetName);				/** РЎРѕР·РґР°РЅРёРµ Optional РѕР±СЉРµРєС‚РѕРІ */				//РџСѓСЃС‚РѕР№ Optional РѕР±СЉРµРєС‚		Optional<Person> optionalPerson = Optional.empty();				//Optional РѕР±СЉРµРєС‚ СЃ РЅРµРЅСѓР»РµРІС‹Рј Р·РЅР°С‡РµРЅРёРµРј		Optional<Person> optionalNonNull = Optional.of(new Person());				//Optional РѕР±СЉРµРєС‚ СЃ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊСЋ РЅСѓР»РµРІРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ		Optional<Person> optionalNullable = Optional.ofNullable(new Person());						/** Р”РµР№СЃС‚РІРёСЏ СЃ РѕР±СЉРµРєС‚РѕРј, СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј РјРµС‚РѕРґР° ifPresent() */				/* РљР°Рє Р±С‹Р»Рѕ СЂР°РЅСЊС€Рµ:		 if(person != null) {		  System.out.println(person);		 }		 		 */				//РўРѕ Р¶Рµ СЃР°РјРѕРµ, РЅРѕ СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј Optional				person.ifPresent(System.out::println);				/** Р”РµР№СЃС‚РІРёСЏ СЃ РѕР±СЉРµРєС‚РѕРј СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј isPresent() */		/* РљР°Рє Р±С‹Р»Рѕ СЂР°РЅСЊС€Рµ		  if(person != null) {		    System.out.println(person)		  } else {		    System.out.println("Person not found!");		  }		 */				//РўРѕ Р¶Рµ СЃР°РјРѕРµ, РЅРѕ СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј Optional		//РР·РјРµРЅРµРЅРёСЏ РЅРµР±РѕР»СЊС€РёРµ, РЅРѕ РјРµС‚РѕРґ isPresent() РїСЂРёРґР°РµС‚ Р±РѕР»СЊС€Рµ РёРЅС„РѕСЂРјР°С‚РёРІРЅРѕСЃС‚Рё РєРѕРґСѓ.				if (person.isPresent()) {			System.out.println(person.get());		} else {			System.out.println("Person not found!");		}				/** Р”РµР№СЃС‚РІРёСЏ СЃ РѕР±СЉРµРєС‚РѕРј СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј orElse(), orElseThrow() */		/* РљР°Рє Р±С‹Р»Рѕ СЂР°РЅСЊС€Рµ		  Person personNew = person != null ? person : new Person();		 */				//РўРѕ Р¶Рµ СЃР°РјРѕРµ, РЅРѕ СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј Optional				Person personNew = person.orElse(new Person());		//РР»Рё РµСЃР»Рё РЅРµ С…РѕС‚РёРј СЃРѕР·РґР°РІР°С‚СЊ РѕР±СЉРµРєС‚, РјРѕР¶РЅРѕ РІС‹Р±СЂРѕСЃРёС‚СЊ РёСЃРєР»СЋС‡РµРЅРёРµ		Person personNewThrow = person.orElseThrow(Exception::new);				System.out.println();	}}
