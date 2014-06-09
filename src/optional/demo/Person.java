@@ -51,7 +51,7 @@ public class Person {
 		StringBuilder personDescription = new StringBuilder("First name: ");
 		personDescription.append(getFirstName().isPresent() ? getFirstName().get() : "[EMPTY]").
 						  append(", Second name: ").
-						  append("").
+						  append(getSecondName().isPresent() ? getSecondName().get() : "[EMPTY]").
 						  append(", Age: ").
 						  append(getAge().isPresent() ? getAge().get() : "[EMPTY]");
 		return personDescription.toString();
@@ -61,7 +61,4 @@ public class Person {
 		Date todaysDate = new Date();
 		return todaysDate.getYear() - getAge().get();
 	}
-
-
-
 }

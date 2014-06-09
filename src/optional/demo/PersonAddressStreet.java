@@ -15,5 +15,4 @@ public class PersonAddressStreet {
 	public void setStreetName(String streetName) {
 		this.streetName = streetName;
 	}
-
 }

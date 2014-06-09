@@ -17,8 +17,4 @@ public class PersonAddress {
 	public void setStreet(PersonAddressStreet street) {
 		this.street = Optional.ofNullable(street);
 	}
-	
-	
-	
-
 }
