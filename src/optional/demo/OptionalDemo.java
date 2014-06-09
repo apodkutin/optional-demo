@@ -102,6 +102,8 @@ public class OptionalDemo {
 		//Или если не хотим создавать объект, можно выбросить исключение
 		Person personNewThrow = person.orElseThrow(Exception::new);
 		
+		System.out.println();
+		
 		
 		
 	}

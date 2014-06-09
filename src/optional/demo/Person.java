@@ -42,7 +42,7 @@ public class Person {
 	}
 
 	public void setAddress(PersonAddress address) {
-		//Выкидывает NullPointerException, если передается null в качестве параметра address
+		//Р’С‹РєРёРґС‹РІР°РµС‚ NullPointerException, РµСЃР»Рё РїРµСЂРµРґР°РµС‚СЃСЏ null РІ РєР°С‡РµСЃС‚РІРµ РїР°СЂР°РјРµС‚СЂР° address
 		this.address = Optional.of(address);
 	}
 	
