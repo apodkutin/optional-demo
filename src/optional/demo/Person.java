@@ -1,8 +1,12 @@
 package optional.demo;
 
-import java.util.Date;
 import java.util.Optional;
 
+/**
+ * Класс описывающий персону.
+ * @author Alexander Podkutin
+ *
+ */
 public class Person {
 
 	private Optional<String> firstName;
@@ -55,10 +59,5 @@ public class Person {
 						  append(", Age: ").
 						  append(getAge().isPresent() ? getAge().get() : "[EMPTY]");
 		return personDescription.toString();
-	}
-	
-	public Integer getPersonBirthYear() {
-		Date todaysDate = new Date();
-		return todaysDate.getYear() - getAge().get();
 	}
 }

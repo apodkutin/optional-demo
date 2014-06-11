@@ -2,6 +2,11 @@ package optional.demo;
 
 import java.util.Optional;
 
+/**
+ * Класс описывающий адрес персоны.
+ * @author Alexander Podkutin
+ *
+ */
 public class PersonAddress {
 	
 	public PersonAddress(PersonAddressStreet street) {
