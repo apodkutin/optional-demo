@@ -1,5 +1,10 @@
 package optional.demo;
 
+/**
+ * Класс описывающий  улицу, в адресе персоны.
+ * @author Alexander Podkutin
+ *
+ */
 public class PersonAddressStreet {
 	
 	public PersonAddressStreet(String streetName) {
